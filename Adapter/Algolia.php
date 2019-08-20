@@ -167,6 +167,7 @@ class Algolia implements AdapterInterface
      * Get rows size
      *
      * @param Select $query
+     *
      * @return int
      */
     private function getSize(Select $query)
@@ -185,6 +186,7 @@ class Algolia implements AdapterInterface
      * Reset limit and offset
      *
      * @param Select $query
+     *
      * @return Select
      */
     private function getSelectCountSql(Select $query)
