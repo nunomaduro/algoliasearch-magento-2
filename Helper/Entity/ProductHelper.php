@@ -1154,7 +1154,7 @@ class ProductHelper
         return true;
     }
 
-    protected function productIsInStock($product, $storeId)
+    public function productIsInStock($product, $storeId)
     {
         $stockItem = $this->stockRegistry->getStockItem($product->getId());
 
