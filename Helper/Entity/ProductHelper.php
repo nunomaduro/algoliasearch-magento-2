@@ -743,7 +743,7 @@ class ProductHelper
         return $customData;
     }
 
-    private function addInStock($defaultData, $customData, Product $product)
+    protected function addInStock($defaultData, $customData, Product $product)
     {
         if (isset($defaultData['in_stock']) === false) {
             $stockItem = $this->stockRegistry->getStockItem($product->getId());
