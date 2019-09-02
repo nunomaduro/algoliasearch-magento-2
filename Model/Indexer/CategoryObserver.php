@@ -28,17 +28,17 @@ class CategoryObserver
     }
 
     /**
-     * Using "before" method here instead of "after", because M2.1 doesn't pass "$product" argument
-     * to "after" methods. When M2.1 support will be removed, this method can be rewriten to:
-     * afterSave(CategoryResourceModel $categoryResource, CategoryResourceModel $result, CategoryModel $category)
-     *
      * @param CategoryResourceModel $categoryResource
+     * @param CategoryResourceModel $result
      * @param CategoryModel $category
      *
-     * @return CategoryModel[]
+     * @return CategoryResourceModel
      */
-    public function beforeSave(CategoryResourceModel $categoryResource, CategoryModel $category)
-    {
+    public function afterSave(
+        CategoryResourceModel $categoryResource,
+        CategoryResourceModel $result,
+        CategoryModel $category
+    ) {
         $categoryResource->addCommitCallback(function () use ($category) {
             if (!$this->indexer->isScheduled() || $this->configHelper->isQueueActive()) {
                 /** @var ProductCollection $productCollection */
@@ -49,17 +49,21 @@ class CategoryObserver
             }
         });
 
-        return [$category];
+        return $result;
     }
 
     /**
      * @param CategoryResourceModel $categoryResource
+     * @param CategoryResourceModel $result
      * @param CategoryModel $category
      *
-     * @return CategoryModel[]
+     * @return CategoryResourceModel
      */
-    public function beforeDelete(CategoryResourceModel $categoryResource, CategoryModel $category)
-    {
+    public function afterDelete(
+        CategoryResourceModel $categoryResource,
+        CategoryResourceModel $result,
+        CategoryModel $category
+    ) {
         $categoryResource->addCommitCallback(function () use ($category) {
             if (!$this->indexer->isScheduled() || $this->configHelper->isQueueActive()) {
                 /* we are using products position because getProductCollection() doesn't use correct store */
@@ -70,6 +74,6 @@ class CategoryObserver
             }
         });
 
-        return [$category];
+        return $result;
     }
 }
