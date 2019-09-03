@@ -4,6 +4,47 @@ require(
 		'mage/translate',
 	],
 	function ($) {
+
+		addDashboardWarnings();
+
+		function addDashboardWarnings() {
+			// rows
+			var rowIds = [
+				'#row_algoliasearch_instant_instant_facets',
+				'#row_algoliasearch_instant_instant_max_values_per_facet'
+			];
+
+			var rowWarning = '<div class="algolia_dashboard_warning">';
+			rowWarning += '<p>You can find this setting also in the Algolia Dashboard. We advise you to manage it from here, because Algolia settings will be overriden once you save Magento settings.</p>';
+			rowWarning += '</div>';
+
+			for (var i=0; i < rowIds.length; i++) {
+				var element = $(rowIds[i]);
+				if (element.length > 0) {
+					element.find('.value').prepend(rowWarning);
+				}
+			}
+
+			// pages
+			var pageIds = [
+				'#algoliasearch_products_products',
+				'#algoliasearch_categories_categories',
+				'#algoliasearch_synonyms_synonyms_group',
+				'#algoliasearch_extra_settings_extra_settings'
+			];
+
+			var pageWarning = '<div class="algolia_dashboard_warning algolia_dashboard_warning_page">';
+			pageWarning += '<p>You can find these settings also in the Algolia Dashboard. We advise you to manage it from here, because Algolia settings will be overriden once you save Magento settings.</p>';
+			pageWarning += '</div>';
+
+			for (var i=0; i < pageIds.length; i++) {
+				var element = $(pageIds[i]);
+				if (element.length > 0) {
+					element.find('.comment').append(pageWarning);
+				}
+			}
+		}
+
 		if ($('#algoliasearch_instant_instant_facets').length > 0) {
 			var addButton = $('#algoliasearch_instant_instant_facets tfoot .action-add');
 			addButton.on('click', function(){
