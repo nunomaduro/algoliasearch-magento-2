@@ -8,7 +8,7 @@ class Facets extends AbstractTable
     {
         $productHelper = $this->productHelper;
 
-        return [
+        $config = [
             'attribute' => [
                 'label'  => 'Attribute',
                 'values' => function () use ($productHelper) {
@@ -39,10 +39,28 @@ class Facets extends AbstractTable
                 'label'  => 'Searchable?',
                 'values' => ['1' => 'Yes', '2' => 'No'],
             ],
-            'create_rule' => [
+        ];
+
+        if ($this->isQueryRulesEnabled()) {
+            $config['create_rule'] =  [
                 'label'  => 'Create Query rule?',
                 'values' => ['1' => 'Yes', '2' => 'No'],
-            ],
-        ];
+            ];
+        }
+
+        return $config;
+    }
+
+    private function isQueryRulesEnabled()
+    {
+        $info = $this->proxyHelper->getInfo(\Algolia\AlgoliaSearch\Helper\ProxyHelper::INFO_TYPE_QUERY_RULES);
+
+        // In case the call to API proxy fails,
+        // be "nice" and return true
+        if ($info && array_key_exists('query_rules', $info)) {
+            return $info['query_rules'];
+        }
+
+        return true;
     }
 }
