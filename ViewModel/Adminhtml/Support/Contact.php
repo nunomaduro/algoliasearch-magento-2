@@ -79,20 +79,6 @@ class Contact
         return $this->backendView->getTooltipHtml($message);
     }
 
-    /**
-     * @return string
-     */
-    public function getLegacyVersionHtml()
-    {
-        /** @var Template $block */
-        $block = $this->backendView->getLayout()->createBlock(Template::class);
-
-        $block->setTemplate('Algolia_AlgoliaSearch::support/components/legacy-version.phtml');
-        $block->setData('extension_version', $this->getExtensionVersion());
-
-        return $block->toHtml();
-    }
-
     /** @return User|null */
     private function getCurrenctAdmin()
     {
