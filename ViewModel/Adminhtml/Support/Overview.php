@@ -2,8 +2,8 @@
 
 namespace Algolia\AlgoliaSearch\ViewModel\Adminhtml\Support;
 
-use Algolia\AlgoliaSearch\Helper\SupportHelper;
 use Algolia\AlgoliaSearch\Block\Adminhtml\BaseAdminTemplate;
+use Algolia\AlgoliaSearch\Helper\SupportHelper;
 use Algolia\AlgoliaSearch\ViewModel\Adminhtml\BackendView;
 use Magento\Backend\Block\Template;
 

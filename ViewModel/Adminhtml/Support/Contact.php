@@ -4,7 +4,6 @@ namespace Algolia\AlgoliaSearch\ViewModel\Adminhtml\Support;
 
 use Algolia\AlgoliaSearch\Helper\SupportHelper;
 use Algolia\AlgoliaSearch\ViewModel\Adminhtml\BackendView;
-use Magento\Backend\Block\Template;
 use Magento\Backend\Model\Auth\Session;
 use Magento\Framework\Module\ModuleListInterface;
 use Magento\User\Model\User;
